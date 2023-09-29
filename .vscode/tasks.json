@@ -8,13 +8,13 @@
             "args": [
                 "-g",
                 "-std=c++17",
+                "-I${workspaceFolder}/include",
+                "-L${workspaceFolder}/lib",
                 "${workspaceFolder}/src/main.cpp",
                 "${workspaceFolder}/src/glad.c",
-                "-o",
-                "-I${workspaceFolder}/include",
-                "-L${workspaceFolder}/library",
                 "-lglfw3dll",
-                "${workspaceFolder}/zmmr.exe"
+                "-o",
+                "${workspaceFolder}/a.exe"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -26,7 +26,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "compiler: C:\\Program Files (x86)\\mingw-w64\\i686-8.1.0-posix-dwarf-rt_v6-rev0\\mingw32\\bin\\g++.exe"
+            "detail": "C:\\Program Files (x86)\\mingw-w64\\i686-8.1.0-posix-dwarf-rt_v6-rev0\\mingw32\\bin\\g++.exe",
         }
     ]
 }
