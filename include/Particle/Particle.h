@@ -28,17 +28,18 @@
 
 #pragma once
 
+// Structure for a single particle with properties of position, velocity, and lifetime
 struct Particle {
-    float position[3];
-    float velocity[3];
-    float lifeTime;
-    float maxLifeTime;
+    float position[3];      // array for position with 3 values representing x, y, z
+    float velocity[3];      // array for velocity with 3 values representing x, y, z
+    float lifeTime;         // how long the particle is alive
+    float maxLifeTime;      // max time the particle lives
 };
 
 class ParticleSystem {
 private:
     static const int MAX_PARTICLES = 1000;
-    Particle particles[MAX_PARTICLES];
+    Particle particles[MAX_PARTICLES];      //created from struct 
 
 public:
     ParticleSystem();
