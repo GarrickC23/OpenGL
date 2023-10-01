@@ -27,6 +27,7 @@
 // #endif
 
 #pragma once
+#include <vector>
 
 // Structure for a single particle with properties of position, velocity, and lifetime
 struct Particle {
@@ -34,16 +35,20 @@ struct Particle {
     float velocity[3];      // array for velocity with 3 values representing x, y, z
     float lifeTime;         // how long the particle is alive
     float maxLifeTime;      // max time the particle lives
+    float width;            // width of particle
+    float height;           // height of particle
 };
 
 class ParticleSystem {
 private:
-    static const int MAX_PARTICLES = 1000;
+    static const int MAX_PARTICLES = 300;
     Particle particles[MAX_PARTICLES];      //created from struct 
 
 public:
     ParticleSystem();
-    void update(float deltaTime);
+    void update(float deltaTime, double currentTime);
     Particle* getParticles() { return particles; } // Expose particles for rendering
+
+    std::vector<std::pair<float, double>> landings;
 };
 
