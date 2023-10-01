@@ -74,7 +74,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         glBegin(GL_QUADS);
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 50; i++) {
             Particle* particles = particleSystem.getParticles();
             glColor3f(0.6f, 0.7f, 0.8f);
             float x = particles[i].position[0];
@@ -87,29 +87,45 @@ int main()
             glVertex3f(x - particles[i].width/2, y + particles[i].height/2, 0.0f);  // top-left corner
 
             // glVertex3f(particles[i].position[0], particles[i].position[1], particles[i].position[2]);
+        }
+        glEnd();
 
-            glColor3f(0.5f, 0.5f, 0.5f);
-            double currentTime = glfwGetTime();
-            
-            for ( auto &landing : particleSystem.landings )
+        if ( glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS )
+        {
+            float windValue = 0.1f;
+            particleSystem.setWind(windValue);
+        }
+        if ( glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS )
+        {
+            float windValue = -0.1f;
+            particleSystem.setWind(windValue);
+        }
+
+        glBegin(GL_QUADS);
+        glColor3f(0.5f, 0.5f, 0.5f);
+        glVertex2f(-1.0f, -1.0f); // bottom-left
+        glVertex2f( 1.0f, -1.0f); // bottom-right
+        glVertex2f( 1.0f, -0.8f); // top-right
+        glVertex2f(-1.0f, -0.8f); // top-left
+        for ( auto &landing : particleSystem.landings )
+        {
+            float elapsedTime = currentTime - landing.second;
+
+            if ( elapsedTime < 1.0 )
             {
-                float elapsedTime = currentTime - landing.second;
-
-                if ( elapsedTime > 2.0 )
-                {
-                    glColor3f(0.5f, 0.5f, 0.5f);
-                }
-                else
-                {
-                    float darkenFactor = 1.0f - 0.5f * (elapsedTime / 2.0f);
-                    glColor3f(0.5f * darkenFactor, 0.5f * darkenFactor, 0.5f * darkenFactor);
-                    float x = landing.first;
-                    glVertex2f(-1.0f, -1.0f); // bottom-left
-                    glVertex2f( 1.0f, -1.0f); // bottom-right
-                    glVertex2f( 1.0f, -0.8f); // top-right
-                    glVertex2f(-1.0f, -0.8f); // top-left
-                }
+                glColor3f(0.5f, 0.5f, 0.5f);
             }
+            else
+            {
+                float darkenFactor = 1.0f - 0.5f * (elapsedTime / 2.0f);
+                glColor3f(0.5f * darkenFactor, 0.5f * darkenFactor, 0.5f * darkenFactor);
+            }
+            float landing_x = landing.first;
+            float landing_size = 0.008f;
+            glVertex2f(landing_x - landing_size, -0.808f - landing_size);
+            glVertex2f(landing_x + landing_size, -0.808f - landing_size);
+            glVertex2f(landing_x + landing_size, -0.808f + landing_size);
+            glVertex2f(landing_x - landing_size, -0.808f + landing_size);
         }
         glEnd();
 

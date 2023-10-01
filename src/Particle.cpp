@@ -69,10 +69,14 @@ ParticleSystem::ParticleSystem()
     }
 }
 
+void ParticleSystem::setWind(float windValue)
+{
+    wind = windValue;
+}
+
 void ParticleSystem::update(float deltaTime, double currentTime) 
 {
     float gravity = 9.81f;      //gravity constant
-    std::vector<std::pair<float, double>> landings; //x coordinate and landing time
 
     for(int i = 0; i < MAX_PARTICLES; i++) 
     {
@@ -84,6 +88,8 @@ void ParticleSystem::update(float deltaTime, double currentTime)
         {
             particles[i].position[j] -= particles[i].velocity[j] * deltaTime * gravity;
         }
+
+        particles[i].position[0] += wind * deltaTime; 
 
         // Update lifeTime
         particles[i].lifeTime += deltaTime;

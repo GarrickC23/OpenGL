@@ -41,14 +41,15 @@ struct Particle {
 
 class ParticleSystem {
 private:
-    static const int MAX_PARTICLES = 300;
+    static const int MAX_PARTICLES = 50;
     Particle particles[MAX_PARTICLES];      //created from struct 
 
 public:
     ParticleSystem();
     void update(float deltaTime, double currentTime);
+    float wind;
+    void setWind(float windValue);
     Particle* getParticles() { return particles; } // Expose particles for rendering
-
     std::vector<std::pair<float, double>> landings;
 };
 
